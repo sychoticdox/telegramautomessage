@@ -124,7 +124,6 @@ def parse_forward_link(link):
     return None, None
 
 async def main():
-    # PM2 loglarında ekranın sürekli temizlenmesini engellemek için sadece config yoksa temizle
     if not os.path.exists(CONFIG_FILE):
         os.system('cls' if os.name == 'nt' else 'clear')
         console.print(generate_banner())
@@ -160,7 +159,7 @@ async def main():
             console.print("[bold red]Geçersiz seçim, varsayılan 15 dakika ayarlandı.[/bold red]")
             interval = 15 * 60
             
-        # Ayarları kaydet
+
         config_data = {
             "id_file": id_file,
             "forward_link": forward_link,
@@ -171,7 +170,6 @@ async def main():
         console.print("[bold green]\n[+] Ayarlar config.json dosyasına kaydedildi.[/bold green]")
         await asyncio.sleep(2)
     else:
-        # Config dosyası varsa direkt oku
         with open(CONFIG_FILE, "r", encoding="utf-8") as cf:
             config_data = json.load(cf)
         
@@ -184,15 +182,12 @@ async def main():
             console.print("[bold red]Hata: config.json dosyasındaki veriler veya ID listesi geçersiz! Lütfen config.json dosyasını silip tekrar başlatın.[/bold red]")
             return
 
-    # Hedef listesini yükle
     with open(id_file, "r", encoding="utf-8") as f:
         targets = [line.strip() for line in f if line.strip()]
 
     client = TelegramClient('session_auto_post', api_id, api_hash)
     await client.start()
     
-    # PM2 ve normal terminal uyumluluğu için auto_refresh kapalı veya yönlendirmeli kontrol edilebilir
-    # PM2 loglarında düzgün görünmesi için ekranı sürekli temizlemeyen bir döngü kuruyoruz
     with Live(make_layout(), refresh_per_second=1, screen=False) as live:
         add_log(f"Saf Forward Modu başlatıldı. (Ayarlar {CONFIG_FILE} dosyasından alındı)")
         live.update(make_layout())
