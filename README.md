@@ -49,8 +49,8 @@ pip install -r requirements.txt
 Projeyi klonlayın:
 
 ```bash
-git clone https://github.com/kullaniciadi/DarqMSG.git
-cd DarqMSG
+git clone https://github.com/sychoticdox/telegramautomessage/.git
+cd telegramautomessage
 ```
 
 Ardından gerekli paketleri yükleyin:
@@ -62,7 +62,7 @@ pip install -r requirements.txt
 Programı çalıştırın:
 
 ```bash
-python main.py
+python automessage.py
 ```
 
 ---
@@ -98,7 +98,7 @@ Program dosya içerisindeki mesajı belirlenen tüm kanallara otomatik olarak g�
 ## 📁 Proje Yapısı
 
 ```
-DarqMSG/
+telegramautomessage/
 │
 ├── automessage.py
 ├── requirements.txt
